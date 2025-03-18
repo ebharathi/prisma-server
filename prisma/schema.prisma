@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql" // or postgres / mongodb
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String   @id @default(uuid())
+  username          String   @unique
+  email             String   @unique
+  password          String
+  organization      String   
+  isConfirmed       Boolean  @default(false)
+  confirmationToken String?  // optional until confirmed
+  createdAt         DateTime @default(now())
+}
